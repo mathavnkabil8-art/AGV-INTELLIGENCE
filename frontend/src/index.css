@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color-scheme: light;
+
+  /* Premium Light Industrial Tokens (Default) */
+  --bg-app: #F4F7FB;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-secondary: #F8FAFC;
+  --bg-sidebar: #FFFFFF;
+  --bg-header: #FFFFFF;
+  --text-primary: #172033;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border-main: #E2E8F0;
+  --border-light: #F1F5F9;
+  --primary-blue: #2563EB;
+  --electric-blue: #0EA5E9;
+  --teal-accent: #0D9488;
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --soft-blue: #EFF6FF;
+  --soft-teal: #F0FDFA;
+
+  /* Warehouse Canvas Tokens */
+  --warehouse-bg: #F8FAFC;
+  --warehouse-grid: #E2E8F0;
+  --warehouse-obstacle: #475569;
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Dark Command Center Tokens */
+  --bg-app: #070B14;
+  --bg-surface: #0B1120;
+  --bg-card: #0F172A;
+  --bg-card-secondary: #131C31;
+  --bg-sidebar: #0B1120;
+  --bg-header: #0B1120;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --border-main: #1E293B;
+  --border-light: #334155;
+  --primary-blue: #38BDF8;
+  --electric-blue: #00F0FF;
+  --teal-accent: #14B8A6;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --soft-blue: rgba(6, 182, 212, 0.12);
+  --soft-teal: rgba(13, 148, 136, 0.12);
+
+  --warehouse-bg: #070B14;
+  --warehouse-grid: #131C31;
+  --warehouse-obstacle: #1E293B;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Premium Light / Dark Glass Card Component */
+.glass-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-main);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.glass-panel:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+}
+
+.dark .glass-panel {
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 41, 59, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.dark .glass-panel:hover {
+  border-color: rgba(71, 85, 105, 0.8);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+}
+
+.glass-panel-subtle {
+  background: var(--bg-card-secondary);
+  border: 1px solid var(--border-main);
+}
+
+.dark .glass-panel-subtle {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(30, 41, 59, 0.5);
+}
+
+/* Subtle architectural grid background pattern */
+.bg-grid-pattern {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1E293B;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Industrial status pulse dot */
+.status-beacon {
+  position: relative;
+  display: inline-flex;
+}
+
+.status-beacon::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.35;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

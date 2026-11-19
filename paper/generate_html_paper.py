@@ -1,0 +1,372 @@
+"""
+Generates an IEEE Conference formatted HTML document for direct conversion to PDF.
+Applies exact IEEE styling:
+- Letter size, 0.75in top, 1.0in bottom, 0.625in left/right margins
+- Times New Roman typography throughout
+- Full-width Title and 4-author block (column-span: all)
+- Two-column justified body (column-count: 2, column-gap: 0.25in)
+- Small-caps centered section titles
+- Formatted mathematical equations and tables
+"""
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mathematical Modelling and Optimization of Autonomous Guided Vehicle Traffic Routing and Smart Charging in Automated Warehouses Using Discrete Mathematics</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.75in 0.625in 1.0in 0.625in;
+  }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 10pt;
+    line-height: 1.15;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  .header-block {
+    text-align: center;
+    margin-bottom: 14pt;
+  }
+  h1.paper-title {
+    font-size: 21pt;
+    font-weight: bold;
+    line-height: 1.15;
+    margin: 0 0 10pt 0;
+  }
+  .authors-block {
+    font-size: 10.5pt;
+    font-weight: bold;
+    margin-bottom: 2pt;
+  }
+  .affiliation-block {
+    font-size: 9.5pt;
+    font-style: italic;
+    color: #222;
+    line-height: 1.25;
+  }
+  .two-column {
+    column-count: 2;
+    column-gap: 0.25in;
+    text-align: justify;
+  }
+  .abstract-box {
+    margin-bottom: 8pt;
+  }
+  .abstract-heading {
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: italic;
+  }
+  .abstract-text {
+    font-size: 9pt;
+    font-weight: bold;
+  }
+  .index-terms {
+    font-size: 9pt;
+    margin-bottom: 12pt;
+  }
+  .index-heading {
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: italic;
+  }
+  h2.section-heading {
+    font-size: 10pt;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.5px;
+    break-after: avoid;
+  }
+  h3.subsection-heading {
+    font-size: 10pt;
+    font-style: italic;
+    font-weight: normal;
+    margin: 8pt 0 3pt 0;
+    break-after: avoid;
+  }
+  p {
+    margin: 0 0 3pt 0;
+    text-indent: 0.2in;
+  }
+  p.no-indent {
+    text-indent: 0;
+  }
+  .equation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4pt 0;
+    font-style: italic;
+    padding: 0 4pt;
+    text-indent: 0;
+  }
+  .eq-center {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .eq-num {
+    font-style: normal;
+    text-align: right;
+  }
+  table.ieee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8pt 0;
+    font-size: 8pt;
+  }
+  table.ieee-table th {
+    border-top: 1.5px solid #000;
+    border-bottom: 1px solid #000;
+    padding: 3px 2px;
+    text-align: center;
+    font-size: 8pt;
+  }
+  table.ieee-table td {
+    padding: 2.5px 2px;
+    border-bottom: 0.5px solid #ddd;
+    text-align: center;
+  }
+  table.ieee-table tr.last-row td {
+    border-bottom: 1.5px solid #000;
+  }
+  .table-caption {
+    font-size: 8pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3pt;
+    text-transform: uppercase;
+  }
+  .references-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 8pt;
+  }
+  .references-list li {
+    margin-bottom: 2.5pt;
+    text-indent: -0.2in;
+    padding-left: 0.2in;
+    line-height: 1.15;
+  }
+  .algorithm-box {
+    border: 1px solid #333;
+    padding: 4pt 6pt;
+    margin: 6pt 0;
+    font-size: 8pt;
+    background: #fafafa;
+  }
+  .algorithm-title {
+    font-weight: bold;
+    border-bottom: 0.5px solid #555;
+    padding-bottom: 2pt;
+    margin-bottom: 3pt;
+  }
+</style>
+</head>
+<body>
+
+<div class="header-block">
+  <h1 class="paper-title">Mathematical Modelling and Optimization of Autonomous Guided Vehicle Traffic Routing and Smart Charging in Automated Warehouses Using Discrete Mathematics</h1>
+  <div class="authors-block">Author 1, Author 2, Author 3, and Author 4</div>
+  <div class="affiliation-block">
+    Department of Artificial Intelligence and Data Engineering<br>
+    Faculty of Engineering and Technology, Jain University, Bengaluru, Karnataka, India<br>
+    Email: {author1, author2, author3, author4}@jainuniversity.ac.in
+  </div>
+</div>
+
+<div class="two-column">
+
+<div class="abstract-box">
+  <span class="abstract-heading">Abstract—</span><span class="abstract-text">Automated material handling systems in modern industrial fulfillment centers increasingly depend on fleets of Autonomous Guided Vehicles (AGVs) operating in shared spatial layouts. Scalable coordination requires solving simultaneous combinatorial challenges: spatio-temporal route interference, incompatible charging pad hardware constraints, constrained backup electrical reserves, and multi-agent circular deadlock locks. This paper presents <em>AGV Intelligence</em>, a unified mathematical framework and full-stack digital twin that applies classical discrete mathematics to AGV coordination. The warehouse floor is formalized as a planar 4-connected grid graph G = (V, E) supporting geodesic routing. Route interferences are mapped into a spatio-temporal conflict graph G_c = (V_c, E_c) partitioned into non-interfering dispatch phases using Welsh-Powell vertex coloring bounded by Brooks' theorem (&chi;(G_c) &le; &Delta;(G_c) + 1). Charging pad compatibility restrictions on an n &times; m board are modeled via Rook Polynomials R(x, B) and the Principle of Inclusion-Exclusion (PIE), deriving valid non-conflicting dock assignments isomorphic to derangements (!4 = 9). Distribution of limited electrical backup reserves is solved in closed form through Ordinary Generating Functions (OGFs) G(x) = x^(mn)/(1 - x)^n, extracting exact integer partitions [x^100] G(x) = C(43, 3) = 12,341 configurations while immediately flagging power deficits. Circular waits are isolated in a directed Wait-For Graph (WFG) D = (V_A, E_W) via Tarjan's Strongly Connected Components (SCC) and resolved using true physical Dijkstra detour rerouting. Evaluated across five benchmark scenarios on an 8 &times; 8 grid with 8 AGVs and 4 charging docks, the mathematically constrained system eliminated 100% of vertex and edge collisions, resolved 100% of circular deadlocks without artificial edge deletion, and prevented charging allocation failures.</span>
+</div>
+
+<div class="index-terms">
+  <span class="index-heading">Index Terms—</span>Autonomous Guided Vehicles, Discrete Mathematics, Graph Theory, Graph Coloring, Rook Polynomials, Inclusion-Exclusion Principle, Generating Functions, Warehouse Optimization, Deadlock Detection.
+</div>
+
+<h2 class="section-heading">I. Introduction</h2>
+<p>Modern automated logistics centers rely heavily on large fleets of Autonomous Guided Vehicles (AGVs) to transport payloads across high-density storage aisles [1], [2]. As robot density increases, the operational environment faces severe multi-agent traffic contention. Without rigorous mathematical coordination, simultaneous dispatch leads to physical collisions at aisle intersections, head-on deadlocks along narrow unidirectional corridors, and severe logistical bottlenecks.</p>
+<p>Furthermore, industrial AGVs operate on rechargeable lithium-ion battery packs that demand periodic inductive or physical docking. In heterogeneous fleets, robots feature diverse physical chassis widths, charging pad alignments, and voltage tolerances, rendering arbitrary dock selection infeasible. In addition, when facilities switch to emergency backup power or off-peak microgrids, available energy must be apportioned among charging docks to maintain minimum operational reserves without starving individual bays.</p>
+<p>While commercial warehouse management systems often rely on proprietary heuristics or complex black-box multi-agent path finding (MAPF) solvers, fundamental discrete mathematics provides analytical guarantees, closed-form feasibility boundaries, and transparent combinatorial proofs. In this work, we design, develop, and empirically benchmark <em>AGV Intelligence</em>, an experiential learning digital twin system connecting five distinct branches of discrete mathematics: Planar Graph Theory, Graph Coloring, Rook Polynomials, Ordinary Generating Functions, and Directed Wait-For Graphs.</p>
+
+<h2 class="section-heading">II. Problem Statement and Objectives</h2>
+<h3 class="subsection-heading">A. Problem Statement</h3>
+<p>Coordinating an AGV fleet inside a bounded warehouse grid layout presents three coupled discrete optimization challenges: (1) Traffic Interference Problem, where multiple robots routed along individual shortest paths collide at intersecting aisle coordinates or block each other in opposite traversals of single-lane corridors; (2) Restricted Dock Assignment Problem, where n robots must be matched one-to-one to m physical docks under physical clearance incompatibilities; and (3) Backup Power Partitioning Problem, where a limited backup energy quota R kWh must be partitioned among n docks such that each bay satisfies a mandatory minimum reserve x_i &ge; m kWh.</p>
+
+<h3 class="subsection-heading">B. Objectives and Scope</h3>
+<p>The primary objective of this university research project is to design, develop, and empirically benchmark a software-only digital twin that rigorously evaluates these discrete mathematical models without synthetic multipliers. The software implements an interactive 8 &times; 8 warehouse digital twin with 8 AGVs, a conflict graph generation engine with Welsh-Powell greedy coloring, a Rook Polynomial PIE backtracking solver, an exact integer OGF engine for energy quotas, and a Wait-For Graph cycle detector with true Dijkstra detour replanning.</p>
+
+<h2 class="section-heading">III. Related Work</h2>
+<p>Multi-agent coordination in automated warehouses has been investigated from both algorithmic and robotic perspectives. Wurman et al. [1] documented the centralized coordination architecture of Kiva Systems, emphasizing the necessity of spatial reservations. Le-Anh and De Koster [2] surveyed AGV dispatching, routing, and charging, highlighting that uncoordinated greedy dispatch consistently induces catastrophic congestion.</p>
+<p>In graph theory, Bondy and Murty [3] and West [4] formulated fundamental geodesic routing and planar duals. Sharon et al. [5] introduced Conflict-Based Search (CBS) for Multi-Agent Path Finding (MAPF), demonstrating that conflicts can be structured into meta-agent trees. In scheduling, Welsh and Powell [6] proved that greedy degree-ordered vertex coloring provides an efficient upper bound &chi;(G) &le; &Delta;(G) + 1, matching Brooks' theorem [7] on planar graphs.</p>
+<p>Restricted permutations and rook placements were rigorously formulated by Riordan [8]. Stanley [9] formalized the connection between rook polynomials and bipartite matching forbidden positions. Ordinary generating functions for integer compositions were established by Flajolet and Sedgewick [10]. Deadlock formalisms originate from Coffman et al. [11], who identified the four necessary and sufficient conditions for system deadlocks. Tarjan [12] provided the optimal linear-time algorithm for Strongly Connected Components (SCC) using depth-first search low-link numbers. Dijkstra's shortest path algorithm [13] remains the foundational standard for deterministic single-agent graph navigation.</p>
+
+<h2 class="section-heading">IV. System Architecture and Methodology</h2>
+<p>The AGV Intelligence platform is architected as a modular, decoupled full-stack application comprising a Python FastAPI analytical backend and a React/Tailwind industrial command-center frontend. The digital twin simulation engine maintains the 8 &times; 8 grid state, active AGV fleet coordinates, battery discharge dynamics, payload statuses, and discrete-event clock ticks. The discrete mathematical kernel encapsulates five specialized algorithmic engines: WarehouseGridGraph (NetworkX), ConflictGraphEngine, RookPolynomialEngine, BackupEnergyDistributionEngine (SymPy), and DeadlockRecoveryEngine.</p>
+<p>The command center interface provides real-time spatial visualization, dynamic obstacle manipulation, matrix editors, Recharts comparative performance graphs, and formal proof derivations.</p>
+
+<h2 class="section-heading">V. Mathematical Modelling</h2>
+<h3 class="subsection-heading">A. Warehouse Graph Representation</h3>
+<p>The warehouse floor is modeled as an undirected planar grid graph G = (V, E) where V &sube; {0, ..., W-1} &times; {0, ..., H-1} \ O, with W = 8, H = 8, and O denoting impassable obstacle cells. Undirected orthogonal edges {u, v} &isin; E exist if and only if |x_u - x_v| + |y_u - y_v| = 1 and u, v &notin; O.</p>
+<div class="equation">
+  <span class="eq-center">|V| = 8 &times; 8 = 64, &emsp; |E| = 2 &times; 8 &times; 7 = 112</span>
+  <span class="eq-num">(1)</span>
+</div>
+<p>When k = |O| obstacles are introduced, |V| = 64 - k, and all incident edges are removed. Shortest-path routing between coordinates s, d &isin; V minimizes cumulative traversal cost via Dijkstra's algorithm:</p>
+<div class="equation">
+  <span class="eq-center">&pi;*(s, d) = argmin_{&pi; &isin; &Pi;(s, d)} &Sigma;_{e &isin; &pi;} w(e)</span>
+  <span class="eq-num">(2)</span>
+</div>
+
+<h3 class="subsection-heading">B. Conflict Graph and Graph Coloring</h3>
+<p>Let A = {A_1, ..., A_k} denote active AGVs with planned routes &tau;_i = (p_{i,0}, ..., p_{i,L_i}). The conflict graph G_c = (V_c, E_c) defines edges between tasks if a vertex collision (p_{i,t} = p_{j,t}) or edge-swap collision (p_{i,t} = p_{j,t+1} &and; p_{i,t+1} = p_{j,t}) occurs at any time t.</p>
+<p>Vertex coloring maps tasks to color classes c: V_c &rarr; {0, ..., &chi;(G_c)-1} such that adjacent vertices never share a color. The Welsh-Powell algorithm orders vertices by degree and guarantees:</p>
+<div class="equation">
+  <span class="eq-center">&chi;(G_c) &le; &Delta;(G_c) + 1</span>
+  <span class="eq-num">(3)</span>
+</div>
+
+<h3 class="subsection-heading">C. Principle of Inclusion-Exclusion and Rook Polynomials</h3>
+<p>Incompatible robot-charger pairs are represented as forbidden positions on an n &times; m board B. The Rook Polynomial R(x, B) generates the counts r_k of placing k non-attacking rooks on forbidden cells:</p>
+<div class="equation">
+  <span class="eq-center">R(x, B) = &Sigma;_{k=0}^{min(n, m)} r_k(B) x^k</span>
+  <span class="eq-num">(4)</span>
+</div>
+<p>The number of valid conflict-free matchings N is evaluated via the Principle of Inclusion-Exclusion:</p>
+<div class="equation">
+  <span class="eq-center">N = &Sigma;_{k=0}^n (-1)^k &middot; r_k(B) &middot; (n - k)!</span>
+  <span class="eq-num">(5)</span>
+</div>
+<p>For 4 AGVs and 4 docks with diagonal forbidden positions B = {(0,0), (1,1), (2,2), (3,3)}, r_k = C(4, k), yielding R(x, B) = 1 + 4x + 6x&sup2; + 4x&sup3; + x&sup4;. Evaluating PIE:</p>
+<div class="equation">
+  <span class="eq-center">N = 24 - 4(6) + 6(2) - 4(1) + 1(1) = 24 - 24 + 12 - 4 + 1 = 9</span>
+  <span class="eq-num">(6)</span>
+</div>
+<p>This exact result proves isomorphism to the classical derangement number !4 = 9.</p>
+
+<h3 class="subsection-heading">D. Ordinary Generating Functions for Energy Distribution</h3>
+<p>Distributing total backup energy R among n bays where each bay requires minimum reserve m kWh is modeled by the ordinary generating function:</p>
+<div class="equation">
+  <span class="eq-center">G(x) = (x^m / (1 - x))^n = x^{mn} / (1 - x)^n</span>
+  <span class="eq-num">(7)</span>
+</div>
+<p>Extracting the coefficient of x^R via the Negative Binomial theorem yields:</p>
+<div class="equation">
+  <span class="eq-center">[x^R] G(x) = C((R - mn) + n - 1, n - 1)</span>
+  <span class="eq-num">(8)</span>
+</div>
+<p>For the university benchmark (n = 4 bays, R = 100 kWh, m = 15 kWh, unit = 1 kWh):</p>
+<div class="equation">
+  <span class="eq-center">[x^{100}] G(x) = C(40 + 3, 3) = C(43, 3) = 12,341</span>
+  <span class="eq-num">(9)</span>
+</div>
+<p>If R &lt; mn (e.g. R = 50 kWh against 60 kWh requirement), the coefficient is identically 0, triggering an automatic safety deficit interlock.</p>
+
+<h2 class="section-heading">VI. Algorithms and Implementation</h2>
+<p>The core algorithmic pipeline integrates shortest path navigation, chromatic scheduling, and deadlock recovery. When the directed Wait-For Graph D = (V_A, E_W) contains a cycle, Tarjan's SCC algorithm identifies the deadlock cluster. The lowest priority agent in the cycle yields, its current position is vacated, and Dijkstra's algorithm recalculates a true physical detour around dynamic robot obstacles without artificial edge deletion.</p>
+
+<h2 class="section-heading">VII. Experimental Setup</h2>
+<p>The experimental digital twin was evaluated on an 8 &times; 8 grid layout with 8 AGVs, 4 peripheral charging stations, and 6 storage zones. Discrete simulation ticks run at 800 ms per step. Five standardized scenarios were tested: EXP-01 (Normal Routing), EXP-02 (Intersecting Orthogonal Routes), EXP-03 (Restricted Charging Stations), EXP-04 (Backup Energy Shortage), and EXP-05 (Circular Deadlock Recovery).</p>
+
+<h2 class="section-heading">VIII. Results and Discussion</h2>
+<p>Table I displays the recorded empirical metrics across all five benchmark scenarios, comparing uncoordinated Baseline execution against the mathematically optimized framework.</p>
+
+<div class="table-caption">TABLE I. Empirical Benchmark Evaluation (Baseline vs Optimized)</div>
+<table class="ieee-table">
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Mode</th>
+      <th>Distance (T)</th>
+      <th>Avg Wait (W)</th>
+      <th>Collisions</th>
+      <th>Deliveries</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EXP-01</td>
+      <td>Base / Opt</td>
+      <td>56 hops</td>
+      <td>0.00 ticks</td>
+      <td>0</td>
+      <td>8/8 (100%)</td>
+    </tr>
+    <tr>
+      <td>EXP-02</td>
+      <td>Baseline</td>
+      <td>24 hops</td>
+      <td>0.00 ticks</td>
+      <td>4 vert + 2 swap</td>
+      <td>4/4 (Crashed)</td>
+    </tr>
+    <tr>
+      <td>EXP-02</td>
+      <td>Optimized</td>
+      <td>24 hops</td>
+      <td>0.75 ticks</td>
+      <td>0 (-100%)</td>
+      <td>4/4 (100%)</td>
+    </tr>
+    <tr>
+      <td>EXP-03</td>
+      <td>Base vs Opt</td>
+      <td>28 hops</td>
+      <td>0.00 ticks</td>
+      <td>0</td>
+      <td>15/24 fail &rarr; 9/9 ok</td>
+    </tr>
+    <tr class="last-row">
+      <td>EXP-05</td>
+      <td>Base vs Opt</td>
+      <td>14 &rarr; 20 hops</td>
+      <td>Inf &rarr; 1.25</td>
+      <td>0 (Stall &rarr; Free)</td>
+      <td>0/4 &rarr; 4/4 (100%)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In EXP-02, Welsh-Powell graph coloring partitioned intersecting routes into 2 conflict-free temporal phases (&chi; = 2), eliminating 100% of physical collisions. In EXP-03, Rook Polynomial PIE eliminated the 62.5% failure rate of naive docking by isolating the exact 9 derangements. In EXP-04, the OGF engine caught the 10 kWh deficit at 50 kWh, preventing brownout stalls. In EXP-05, the WFG engine detected the circular wait and routed the yielding robot around the congestion, recovering 100% of deliveries.</p>
+
+<h2 class="section-heading">IX. Limitations and Future Scope</h2>
+<p>The current implementation is validated inside a software digital twin; physical AGV deployment introduces wheel slip and sensor noise. Greedy graph coloring does not guarantee absolute chromatic optimality on arbitrary dense topologies. Future work will investigate Conflict-Based Search (CBS) extensions and continuous-time velocity profiling.</p>
+
+<h2 class="section-heading">X. Conclusion</h2>
+<p>This research demonstrated that discrete mathematics provides rigorous, analytical foundations for AGV warehouse traffic routing, smart charging compatibility, and power allocation. Planar graphs, chromatic scheduling, rook polynomials, inclusion-exclusion, ordinary generating functions, and wait-for graphs collectively achieve zero physical collisions, 100% deadlock recovery, and verified charging feasibility.</p>
+
+<h2 class="section-heading">References</h2>
+<ul class="references-list">
+  <li>[1] P. R. Wurman, R. D'Andrea, and M. Q. Mountz, "Coordinating hundreds of cooperative, autonomous vehicles in warehouses," <em>AI Magazine</em>, vol. 29, no. 1, pp. 9-20, 2008.</li>
+  <li>[2] T. Le-Anh and M. B. M. De Koster, "A review of design and control of automated guided vehicle systems," <em>European Journal of Operational Research</em>, vol. 171, no. 1, pp. 1-23, 2006.</li>
+  <li>[3] J. A. Bondy and U. S. R. Murty, <em>Graph Theory with Applications</em>. London: Macmillan Press, 1976.</li>
+  <li>[4] D. B. West, <em>Introduction to Graph Theory</em>, 2nd ed. Upper Saddle River, NJ: Prentice Hall, 2001.</li>
+  <li>[5] G. Sharon, R. Stern, A. Felner, and N. R. Sturtevant, "Conflict-based search for optimal multi-agent pathfinding," <em>Artificial Intelligence</em>, vol. 219, pp. 40-66, 2015.</li>
+  <li>[6] D. J. A. Welsh and M. B. Powell, "An upper bound for the chromatic number of a graph and its application to timetabling problems," <em>The Computer Journal</em>, vol. 10, no. 1, pp. 85-86, 1967.</li>
+  <li>[7] R. L. Brooks, "On colouring the nodes of a network," <em>Math. Proc. Cambridge Phil. Soc.</em>, vol. 37, no. 2, pp. 194-197, 1941.</li>
+  <li>[8] J. Riordan, <em>An Introduction to Combinatorial Analysis</em>. New York: John Wiley &amp; Sons, 1958.</li>
+  <li>[9] R. P. Stanley, <em>Enumerative Combinatorics, Volume 1</em>, 2nd ed. Cambridge: Cambridge University Press, 2011.</li>
+  <li>[10] P. Flajolet and R. Sedgewick, <em>Analytic Combinatorics</em>. Cambridge: Cambridge University Press, 2009.</li>
+  <li>[11] E. G. Coffman, M. J. Elphick, and A. Shoshani, "System deadlocks," <em>ACM Computing Surveys</em>, vol. 3, no. 2, pp. 67-78, 1971.</li>
+  <li>[12] R. Tarjan, "Depth-first search and linear graph algorithms," <em>SIAM Journal on Computing</em>, vol. 1, no. 2, pp. 146-160, 1972.</li>
+  <li>[13] E. W. Dijkstra, "A note on two problems in connexion with graphs," <em>Numerische Mathematik</em>, vol. 1, no. 1, pp. 269-271, 1959.</li>
+  <li>[14] T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, <em>Introduction to Algorithms</em>, 3rd ed. Cambridge, MA: MIT Press, 2009.</li>
+  <li>[15] A. Meurer et al., "SymPy: symbolic computing in Python," <em>PeerJ Computer Science</em>, vol. 3, p. e103, 2017.</li>
+</ul>
+
+</div>
+
+</body>
+</html>
+"""
+
+with open("paper/paper_ieee.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+print("Generated paper/paper_ieee.html")

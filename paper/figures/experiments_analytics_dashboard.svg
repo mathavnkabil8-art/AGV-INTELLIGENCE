@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="1100" height="680" style="background:#0b0f19; font-family:system-ui, -apple-system, sans-serif;">
+<defs>
+  <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#38bdf8"/>
+    <stop offset="100%" stop-color="#6366f1"/>
+  </linearGradient>
+  <linearGradient id="optGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#10b981"/>
+    <stop offset="100%" stop-color="#059669"/>
+  </linearGradient>
+  <linearGradient id="baseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#ef4444"/>
+    <stop offset="100%" stop-color="#b91c1c"/>
+  </linearGradient>
+</defs>
+<text x="40" y="38" fill="#f8fafc" font-size="20" font-weight="700">Experimental Analytics &amp; Performance Evaluation</text>
+<text x="40" y="58" fill="#94a3b8" font-size="12">Phase 8: Empirical Benchmark Evaluation across 5 Scenarios &bull; Baseline vs Mathematically Optimized</text>
+<rect x="40" y="80" width="196" height="75" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="1.2"/>
+<text x="52" y="100" fill="#38bdf8" font-size="11" font-weight="800">EXP-01</text>
+<text x="52" y="118" fill="#f8fafc" font-size="12" font-weight="600">Normal Routing</text>
+<text x="52" y="136" fill="#94a3b8" font-size="9.5">Shortest Path BFS/Dijkstra</text>
+<rect x="246" y="80" width="196" height="75" rx="8" fill="#111827" stroke="#a855f7" stroke-width="1.2"/>
+<text x="258" y="100" fill="#a855f7" font-size="11" font-weight="800">EXP-02</text>
+<text x="258" y="118" fill="#f8fafc" font-size="12" font-weight="600">Intersecting Routes</text>
+<text x="258" y="136" fill="#94a3b8" font-size="9.5">Welsh-Powell Chromatic Phases</text>
+<rect x="452" y="80" width="196" height="75" rx="8" fill="#111827" stroke="#ec4899" stroke-width="1.2"/>
+<text x="464" y="100" fill="#ec4899" font-size="11" font-weight="800">EXP-03</text>
+<text x="464" y="118" fill="#f8fafc" font-size="12" font-weight="600">Restricted Docks</text>
+<text x="464" y="136" fill="#94a3b8" font-size="9.5">Rook Polynomial PIE !4=9</text>
+<rect x="658" y="80" width="196" height="75" rx="8" fill="#111827" stroke="#10b981" stroke-width="1.2"/>
+<text x="670" y="100" fill="#10b981" font-size="11" font-weight="800">EXP-04</text>
+<text x="670" y="118" fill="#f8fafc" font-size="12" font-weight="600">Energy Shortage</text>
+<text x="670" y="136" fill="#94a3b8" font-size="9.5">OGFs Negative Binomial [x^R]</text>
+<rect x="864" y="80" width="196" height="75" rx="8" fill="#111827" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="876" y="100" fill="#f59e0b" font-size="11" font-weight="800">EXP-05</text>
+<text x="876" y="118" fill="#f8fafc" font-size="12" font-weight="600">Circular Deadlock</text>
+<text x="876" y="136" fill="#94a3b8" font-size="9.5">WFG Cycles & Dijkstra Detour</text>
+<rect x="40" y="175" width="630" height="475" rx="12" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+<text x="60" y="203" fill="#38bdf8" font-size="14" font-weight="700">EMPIRICAL EVALUATION MATRIX: BASELINE vs OPTIMIZED</text>
+<text x="60" y="219" fill="#94a3b8" font-size="10.5">Direct measurement of graph algorithms on physical AGV routing, collisions, and deadlocks</text>
+<rect x="56" y="237" width="598" height="30" rx="4" fill="#1e293b"/>
+<text x="66" y="257" fill="#94a3b8" font-size="11" font-weight="700">EXPERIMENT / BENCHMARK</text>
+<text x="290" y="257" fill="#ef4444" font-size="11" font-weight="700">BASELINE</text>
+<text x="420" y="257" fill="#10b981" font-size="11" font-weight="700">OPTIMIZED</text>
+<text x="540" y="257" fill="#38bdf8" font-size="11" font-weight="700">DIFFERENTIAL</text>
+<rect x="56" y="273" width="598" height="34" rx="3" fill="#0f172a"/>
+<text x="66" y="294" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-01: Travel Distance (T)</text>
+<text x="290" y="294" fill="#fca5a5" font-size="10.5" font-mono>56 hops</text>
+<text x="420" y="294" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">56 hops</text>
+<text x="540" y="294" fill="#38bdf8" font-size="10.5">0 hops (Identical BFS)</text>
+<rect x="56" y="310" width="598" height="34" rx="3" fill="#131d31"/>
+<text x="66" y="331" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-01: Waiting Latency (W)</text>
+<text x="290" y="331" fill="#fca5a5" font-size="10.5" font-mono>0.0 ticks</text>
+<text x="420" y="331" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">0.0 ticks</text>
+<text x="540" y="331" fill="#38bdf8" font-size="10.5">Optimal unconstrained</text>
+<rect x="56" y="347" width="598" height="34" rx="3" fill="#0f172a"/>
+<text x="66" y="368" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-02: Route Conflicts Detected</text>
+<text x="290" y="368" fill="#fca5a5" font-size="10.5" font-mono>4 conflicts</text>
+<text x="420" y="368" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">4 conflicts</text>
+<text x="540" y="368" fill="#38bdf8" font-size="10.5">Graph G_c identified</text>
+<rect x="56" y="384" width="598" height="34" rx="3" fill="#131d31"/>
+<text x="66" y="405" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-02: Physical Collisions</text>
+<text x="290" y="405" fill="#fca5a5" font-size="10.5" font-mono>4 vertex + 2 edge</text>
+<text x="420" y="405" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">0 collisions</text>
+<text x="540" y="405" fill="#38bdf8" font-size="10.5">-100% (Safety verified)</text>
+<rect x="56" y="421" width="598" height="34" rx="3" fill="#0f172a"/>
+<text x="66" y="442" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-02: Chromatic Phases</text>
+<text x="290" y="442" fill="#fca5a5" font-size="10.5" font-mono>1 (Simultaneous)</text>
+<text x="420" y="442" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">2 phases (chi=2)</text>
+<text x="540" y="442" fill="#38bdf8" font-size="10.5">Welsh-Powell scheduled</text>
+<rect x="56" y="458" width="598" height="34" rx="3" fill="#131d31"/>
+<text x="66" y="479" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-03: Invalid Dock Assignments</text>
+<text x="290" y="479" fill="#fca5a5" font-size="10.5" font-mono>15 of 24 (62.5%)</text>
+<text x="420" y="479" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">0 violations</text>
+<text x="540" y="479" fill="#38bdf8" font-size="10.5">PIE Derangements !4=9</text>
+<rect x="56" y="495" width="598" height="34" rx="3" fill="#0f172a"/>
+<text x="66" y="516" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-03: Compatible Matches</text>
+<text x="290" y="516" fill="#fca5a5" font-size="10.5" font-mono>9 / 24 valid</text>
+<text x="420" y="516" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">9 / 9 verified</text>
+<text x="540" y="516" fill="#38bdf8" font-size="10.5">Rook Polynomial R(x,B)</text>
+<rect x="56" y="532" width="598" height="34" rx="3" fill="#131d31"/>
+<text x="66" y="553" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-04: Deficit Energy (50 kWh)</text>
+<text x="290" y="553" fill="#fca5a5" font-size="10.5" font-mono>Uncaught stall</text>
+<text x="420" y="553" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">10 kWh deficit</text>
+<text x="540" y="553" fill="#38bdf8" font-size="10.5">OGF feasibility guard</text>
+<rect x="56" y="569" width="598" height="34" rx="3" fill="#0f172a"/>
+<text x="66" y="590" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-05: Deadlocks Detected</text>
+<text x="290" y="590" fill="#fca5a5" font-size="10.5" font-mono>1 (Tarjan SCC)</text>
+<text x="420" y="590" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">1 (Tarjan SCC)</text>
+<text x="540" y="590" fill="#38bdf8" font-size="10.5">Wait-For Graph D=(V,E)</text>
+<rect x="56" y="606" width="598" height="34" rx="3" fill="#131d31"/>
+<text x="66" y="627" fill="#f8fafc" font-size="10.5" font-weight="600">EXP-05: Deliveries Completed</text>
+<text x="290" y="627" fill="#fca5a5" font-size="10.5" font-mono>0 / 4 (Permanent)</text>
+<text x="420" y="627" fill="#6ee7b7" font-size="10.5" font-mono font-weight="700">4 / 4 (100%)</text>
+<text x="540" y="627" fill="#38bdf8" font-size="10.5">Dijkstra detour replan</text>
+<rect x="690" y="175" width="370" height="475" rx="12" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+<text x="710" y="203" fill="#10b981" font-size="14" font-weight="700">KEY SCIENTIFIC FINDINGS</text>
+<text x="710" y="219" fill="#94a3b8" font-size="10.5">Empirical insights from discrete mathematics modules</text>
+<rect x="706" y="237" width="338" height="86" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1"/>
+<circle cx="720" cy="257" r="5" fill="#a855f7"/>
+<text x="734" y="260" fill="#f8fafc" font-size="11" font-weight="700">Zero Physical Collisions via Graph Coloring</text>
+<foreignObject x="718" y="271" width="314" height="48">
+  <p xmlns="http://www.w3.org/1999/xhtml" style="color:#94a3b8; font-size:9.5px; margin:0; line-height:1.35;">In EXP-02, simultaneous baseline dispatch produces 4 cell overlaps and 2 head-on edge swaps. Welsh-Powell chromatic scheduling (chi=2) provably eliminates collisions while keeping delay minimal.</p>
+</foreignObject>
+<rect x="706" y="333" width="338" height="86" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="1"/>
+<circle cx="720" cy="353" r="5" fill="#ec4899"/>
+<text x="734" y="356" fill="#f8fafc" font-size="11" font-weight="700">Derangement Accuracy in Charging Docks</text>
+<foreignObject x="718" y="367" width="314" height="48">
+  <p xmlns="http://www.w3.org/1999/xhtml" style="color:#94a3b8; font-size:9.5px; margin:0; line-height:1.35;">In EXP-03, unconstrained baseline matching incurs a 62.5% failure rate. Rook polynomial calculation r_k and PIE exactly isolates the 9 collision-free assignments (!4 = 9).</p>
+</foreignObject>
+<rect x="706" y="429" width="338" height="86" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1"/>
+<circle cx="720" cy="449" r="5" fill="#10b981"/>
+<text x="734" y="452" fill="#f8fafc" font-size="11" font-weight="700">Deficit Early Warning via OGFs</text>
+<foreignObject x="718" y="463" width="314" height="48">
+  <p xmlns="http://www.w3.org/1999/xhtml" style="color:#94a3b8; font-size:9.5px; margin:0; line-height:1.35;">In EXP-04, at 50 kWh reserve against a 60 kWh requirement, coefficient [x^50] G(x) is exactly 0. The system halts unfeasible dispatch, preventing mid-route power collapse.</p>
+</foreignObject>
+<rect x="706" y="525" width="338" height="86" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+<circle cx="720" cy="545" r="5" fill="#f59e0b"/>
+<text x="734" y="548" fill="#f8fafc" font-size="11" font-weight="700">Dijkstra Detour Resolves Circular Deadlock</text>
+<foreignObject x="718" y="559" width="314" height="48">
+  <p xmlns="http://www.w3.org/1999/xhtml" style="color:#94a3b8; font-size:9.5px; margin:0; line-height:1.35;">In EXP-05, 4 AGVs in a 2x2 circular wait stall permanently in baseline mode. Tarjan's SCC detects the cycle; the controller routes yielding robot AGV-04 around the obstacle, completing all 4 missions.</p>
+</foreignObject>
+</svg>

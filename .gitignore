@@ -1,0 +1,116 @@
+# =====================================================================
+# AGV Intelligence Platform — Git Ignore Configuration
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# Python & Backend Artifacts
+# ---------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+.tox/
+.nox/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ---------------------------------------------------------------------
+# JavaScript & Frontend Artifacts
+# ---------------------------------------------------------------------
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+.vite/
+frontend/.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# ---------------------------------------------------------------------
+# Environment Variables & Sensitive Credentials
+# ---------------------------------------------------------------------
+# Ignore actual .env files containing local configurations and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+frontend/.env
+*.pem
+*.key
+*.cert
+
+# Do NOT ignore environment template files
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# ---------------------------------------------------------------------
+# IDE, Editor, & Operating System Artifacts
+# ---------------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# OS Metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Local backup and temporary test files
+AGV_Intelligence_IEEE_Source.zip
+test_cols.docx

@@ -1,0 +1,348 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Mathematical Modelling and Optimization of Autonomous Guided Vehicle Traffic Routing and Smart Charging in Automated Warehouses Using Discrete Mathematics}
+
+\author{
+\IEEEauthorblockN{Author 1, Author 2, Author 3, and Author 4}
+\IEEEauthorblockA{\textit{Department of Artificial Intelligence and Data Engineering} \\
+\textit{Faculty of Engineering and Technology, Jain University}\\
+Bengaluru, Karnataka, India \\
+\{author1, author2, author3, author4\}@jainuniversity.ac.in}
+}
+
+\maketitle
+
+\begin{abstract}
+Automated material handling systems in modern industrial fulfillment centers increasingly depend on fleets of Autonomous Guided Vehicles (AGVs) operating in shared spatial layouts. Scalable coordination requires solving simultaneous combinatorial challenges: spatio-temporal route interference, incompatible charging pad hardware constraints, constrained backup electrical reserves, and multi-agent circular deadlock locks. This paper presents \textit{AGV Intelligence}, a unified mathematical framework and full-stack digital twin that applies classical discrete mathematics to AGV coordination. The warehouse floor is formalized as a planar 4-connected grid graph $G=(V, E)$ supporting geodesic routing. Route interferences are mapped into a spatio-temporal conflict graph $G_c=(V_c, E_c)$ partitioned into non-interfering dispatch phases using Welsh-Powell vertex coloring bounded by Brooks' theorem ($\chi(G_c) \le \Delta(G_c) + 1$). Charging pad compatibility restrictions on an $n \times m$ board are modeled via Rook Polynomials $R(x, B)$ and the Principle of Inclusion-Exclusion (PIE), deriving valid non-conflicting dock assignments isomorphic to derangements ($!4 = 9$). Distribution of limited electrical backup reserves is solved in closed form through Ordinary Generating Functions (OGFs) $G(x) = x^{mn}/(1-x)^n$, extracting exact integer partitions $[x^{100}] G(x) = \binom{43}{3} = 12,341$ configurations while immediately flagging power deficits. Circular waits are isolated in a directed Wait-For Graph (WFG) $D=(V_A, E_W)$ via Tarjan's Strongly Connected Components (SCC) and resolved using true physical Dijkstra detour rerouting. Evaluated across five benchmark scenarios on an $8 \times 8$ grid with 8 AGVs and 4 charging docks, the mathematically constrained system eliminated 100\% of vertex and edge collisions, resolved 100\% of circular deadlocks without artificial edge deletion, and prevented charging allocation failures.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Autonomous Guided Vehicles, Discrete Mathematics, Graph Theory, Graph Coloring, Rook Polynomials, Inclusion-Exclusion Principle, Generating Functions, Warehouse Optimization, Deadlock Detection.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Modern automated logistics centers rely heavily on large fleets of Autonomous Guided Vehicles (AGVs) to transport payloads across high-density storage aisles \cite{wurman2008coordinating, leanh2006review}. As robot density increases, the operational environment faces severe multi-agent traffic contention. Without rigorous mathematical coordination, simultaneous dispatch leads to physical collisions at aisle intersections, head-on deadlocks along narrow unidirectional corridors, and severe logistical bottlenecks. 
+
+Furthermore, industrial AGVs operate on rechargeable lithium-ion battery packs that demand periodic inductive or physical docking. In heterogeneous fleets, robots feature diverse physical chassis widths, charging pad alignments, and voltage tolerances, rendering arbitrary dock selection infeasible. In addition, when facilities switch to emergency backup power or off-peak microgrids, available energy must be apportioned among charging docks to maintain minimum operational reserves without starving individual bays.
+
+While commercial warehouse management systems often rely on proprietary heuristics or complex black-box multi-agent path finding (MAPF) solvers, fundamental discrete mathematics provides analytical guarantees, closed-form feasibility boundaries, and transparent combinatorial proofs. 
+
+In this work, we design, implement, and validate \textit{AGV Intelligence}, an experiential learning digital twin system connecting five distinct branches of discrete mathematics:
+\begin{enumerate}
+    \item \textbf{Planar Graph Theory:} Geodesic distance calculation and shortest path routing on 4-connected grid topologies $G=(V, E)$.
+    \item \textbf{Graph Coloring:} Spatio-temporal conflict graphs $G_c=(V_c, E_c)$ and chromatic time-phase scheduling via the Welsh-Powell greedy algorithm bounded by Brooks' theorem.
+    \item \textbf{Rook Polynomials \& Inclusion-Exclusion:} Restricted board matching $R(x, B)$ and PIE derangement enumeration for incompatible AGV charging docks.
+    \item \textbf{Ordinary Generating Functions (OGFs):} Discrete power series expansion for closed-form backup energy allocation across charging bays.
+    \item \textbf{Directed Wait-For Graphs (WFG):} Coffman deadlock detection via Tarjan's Strongly Connected Components (SCC) and recovery through priority-based physical Dijkstra detour rerouting.
+\end{enumerate}
+
+\section{Problem Statement and Objectives}
+\subsection{Problem Statement}
+Coordinating an AGV fleet inside a bounded grid warehouse layout presents three coupled discrete optimization problems:
+\begin{itemize}
+    \item \textbf{Traffic Interference Problem:} Multiple robots routed along individual shortest paths collide at intersecting aisle coordinates or block each other in opposite traversals of single-lane corridors.
+    \item \textbf{Restricted Dock Assignment Problem:} A fleet of $n$ robots must be matched one-to-one to $m$ physical docks where a subset of pairs $(R_i, D_j)$ are strictly incompatible due to mechanical or electrical clearances.
+    \item \textbf{Backup Power Partitioning Problem:} A limited backup energy quota $R$ kWh must be partitioned among $n$ docks such that each dock receives an integer multiple of energy units satisfying a mandatory reserve $x_i \ge m$ kWh.
+\end{itemize}
+
+\subsection{Project Objectives}
+The primary objective of this university research project is to design, develop, and empirically benchmark a software-only digital twin that rigorously evaluates these discrete mathematical models without synthetic multipliers. The software must implement:
+\begin{enumerate}
+    \item An interactive $8 \times 8$ warehouse digital twin supporting dynamic obstacles, configurable movement costs, and real-time fleet telemetry.
+    \item A conflict graph generation engine and greedy vertex coloring scheduler.
+    \item An interactive Rook Polynomial and PIE solver that enumerates valid matchings.
+    \item An exact integer combinatorial OGF engine for energy quotas.
+    \item A Wait-For Graph cycle detector with true Dijkstra detour replanning.
+    \item An integrated controller minimizing multi-objective cost $Z = \alpha T + \beta C + \gamma E + \delta W$.
+\end{enumerate}
+
+\section{Related Work}
+Multi-agent coordination in automated warehouses has been investigated from both algorithmic and robotic perspectives. Wurman et al. \cite{wurman2008coordinating} documented the centralized coordination architecture of Kiva Systems, emphasizing the necessity of spatial reservations. Le-Anh and De Koster \cite{leanh2006review} surveyed AGV dispatching, routing, and charging, highlighting that uncoordinated greedy dispatch consistently induces catastrophic congestion.
+
+In graph theory, Bondy and Murty \cite{bondy1976graph} and West \cite{west2001graph} formulated fundamental geodesic routing and planar duals. Sharon et al. \cite{sharon2015conflict} introduced Conflict-Based Search (CBS) for Multi-Agent Path Finding (MAPF), demonstrating that conflicts can be structured into meta-agent trees. In scheduling, Welsh and Powell \cite{welsh1967upper} proved that greedy degree-ordered vertex coloring provides an efficient upper bound $\chi(G) \le \Delta(G) + 1$, matching Brooks' theorem \cite{brooks1941colouring} on planar graphs.
+
+Restricted permutations and rook placements were rigorously formulated by Riordan \cite{riordan1958introduction}. Stanley \cite{stanley2011enumerative} formalized the connection between rook polynomials and bipartite matching forbidden positions.
+
+Ordinary generating functions for integer compositions were established by Flajolet and Sedgewick \cite{flajolet2009analytic}. The negative binomial expansion has been extensively used in probability and discrete task partitioning.
+
+Deadlock formalisms originate from Coffman et al. \cite{coffman1971system}, who identified the four necessary and sufficient conditions for system deadlocks. Tarjan \cite{tarjan1972depth} provided the optimal linear-time algorithm for Strongly Connected Components (SCC) using depth-first search low-link numbers. Dijkstra's shortest path algorithm \cite{dijkstra1959note} remains the foundational standard for deterministic single-agent graph navigation.
+
+\section{System Architecture and Methodology}
+The \textit{AGV Intelligence} platform is architected as a modular, decoupled full-stack application comprising a Python FastAPI analytical backend and a React/Tailwind industrial command-center frontend.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.98\columnwidth]{figures/integrated_optimization_controller.svg}}
+\caption{Overall AGV Intelligence End-to-End System Architecture and 12-Step Integrated Controller Pipeline.}
+\label{fig:arch}
+\end{figure}
+
+The architecture (Fig.~\ref{fig:arch}) operates through three layers:
+\begin{enumerate}
+    \item \textbf{Digital Twin Simulation Engine:} Maintains the $8 \times 8$ grid state, active AGV fleet coordinates, battery discharge dynamics, payload statuses, and discrete-event clock ticks.
+    \item \textbf{Discrete Mathematical Kernel:} Encapsulates five specialized algorithmic engines: `WarehouseGridGraph` (NetworkX), `ConflictGraphEngine`, `RookPolynomialEngine`, `BackupEnergyDistributionEngine` (SymPy), and `DeadlockRecoveryEngine`.
+    \item \textbf{Industrial Command Center Interface:} Renders real-time spatial layouts, dynamic obstacle manipulation, matrix editors, Recharts comparative performance graphs, and mathematical proof derivations.
+\end{enumerate}
+
+\section{Mathematical Modelling}
+
+\subsection{Warehouse Graph Representation}
+The physical warehouse is modeled as an undirected planar grid graph:
+\begin{equation}
+G = (V, E)
+\end{equation}
+Where $V \subseteq \{0, \dots, W-1\} \times \{0, \dots, H-1\} \setminus O$, with $W = 8$, $H = 8$, and $O$ denoting impassable obstacle cells. Undirected orthogonal edges $\{u, v\} \in E$ exist if and only if $|x_u - x_v| + |y_u - y_v| = 1$ and $u, v \notin O$.
+
+For an obstacle-free $8 \times 8$ grid:
+\begin{equation}
+|V| = 8 \times 8 = 64, \quad |E| = 2 \times 8 \times (8 - 1) = 112
+\end{equation}
+When $k = |O|$ obstacles are introduced, $|V| = 64 - k$, and all edges incident to $O$ are removed. Shortest-path routing between coordinates $s, d \in V$ minimizes cumulative traversal cost:
+\begin{equation}
+\pi^*(s, d) = \arg\min_{\pi \in \Pi(s, d)} \sum_{e \in \pi} w(e)
+\end{equation}
+
+\subsection{Conflict Graph and Graph Coloring}
+Let $\mathcal{A} = \{A_1, \dots, A_k\}$ denote active AGVs with planned routes $\tau_i = (p_{i,0}, p_{i,1}, \dots, p_{i,L_i})$ where $p_{i,t} \in V$ is the cell occupied at discrete tick $t$.
+
+The Conflict Graph is defined as an undirected graph:
+\begin{equation}
+G_c = (V_c, E_c)
+\end{equation}
+Where $V_c = \mathcal{A}$, and an edge $\{A_i, A_j\} \in E_c$ exists if any physical collision condition is violated:
+\begin{enumerate}
+    \item \textbf{Vertex Collision:} $\exists t : p_{i,t} = p_{j,t}$
+    \item \textbf{Edge-Swap Collision:} $\exists t : (p_{i,t} = p_{j,t+1}) \land (p_{i,t+1} = p_{j,t})$
+\end{enumerate}
+
+A valid scheduling maps vertices to color classes $c: V_c \to \{0, \dots, \chi(G_c)-1\}$ such that:
+\begin{equation}
+\{u, v\} \in E_c \implies c(u) \ne c(v)
+\end{equation}
+Each color class forms an independent set whose AGVs can be dispatched concurrently without collision risk. While determining the exact chromatic number $\chi(G)$ is $\mathcal{NP}$-complete, the Welsh-Powell greedy algorithm orders vertices by degree $\deg(v_1) \ge \deg(v_2) \ge \dots$ and guarantees:
+\begin{equation}
+\chi(G_c) \le \Delta(G_c) + 1
+\end{equation}
+Where $\Delta(G_c)$ is the maximum vertex degree in $G_c$.
+
+\subsection{Inclusion-Exclusion Principle}
+Let $S$ be the set of all $n!$ one-to-one assignments of $n$ robots to $n$ charging stations. Let $P_i$ denote the property that robot $R_i$ is assigned to a forbidden dock. The number of completely valid, conflict-free assignments $N(P_1' P_2' \dots P_n')$ is given by the Principle of Inclusion-Exclusion:
+\begin{equation}
+N = |S| - \sum_{i} |S(P_i)| + \sum_{i < j} |S(P_i P_j)| - \dots + (-1)^n |S(P_1 \dots P_n)|
+\end{equation}
+
+\subsection{Rook Polynomial Formulation}
+The forbidden constraints are mapped onto an $n \times m$ board $B \subseteq [n] \times [m]$ where cell $(i, j) = 1$ if pairing robot $R_i$ with dock $D_j$ is forbidden. The Rook Polynomial $R(x, B)$ generates the counts of placing $k$ non-attacking rooks on $B$:
+\begin{equation}
+R(x, B) = \sum_{k=0}^{\min(n, m)} r_k(B) x^k = r_0 + r_1 x + r_2 x^2 + \dots
+\end{equation}
+Where $r_k(B)$ is the number of ways to place $k$ non-attacking rooks on forbidden positions. The number of admissible matchings is:
+\begin{equation}
+N = \sum_{k=0}^n (-1)^k \cdot r_k(B) \cdot (n - k)!
+\end{equation}
+
+\textbf{Benchmark $4 \times 4$ Diagonal Restriction:}
+Consider 4 AGVs and 4 docks with diagonal clearance restrictions $B = \{(0,0), (1,1), (2,2), (3,3)\}$. Because all forbidden cells occupy independent rows and columns:
+\begin{equation}
+r_k(B) = \binom{4}{k} \implies R(x, B) = 1 + 4x + 6x^2 + 4x^3 + x^4
+\end{equation}
+Evaluating the PIE terms:
+\begin{align}
+N &= +1 \cdot 1 \cdot 4! - 4 \cdot 3! + 6 \cdot 2! - 4 \cdot 1! + 1 \cdot 0! \nonumber\\
+  &= 24 - 24 + 12 - 4 + 1 = \mathbf{9}
+\end{align}
+This result is isomorphic to the derangement number $!4 = 9$.
+
+\subsection{Ordinary Generating Functions for Energy Distribution}
+Let $R$ denote total available backup energy (in integer kWh), and let $n$ denote the number of active charging bays, each requiring minimum reserve $m$ kWh. The distribution satisfies:
+\begin{equation}
+x_1 + x_2 + \dots + x_n = R, \quad x_i \ge m, \quad x_i \in \mathbb{Z}
+\end{equation}
+The single-bay generating function is $g(x) = \sum_{j=m}^\infty x^j = \frac{x^m}{1 - x}$. The joint fleet generating function is:
+\begin{equation}
+G(x) = \left(\frac{x^m}{1 - x}\right)^n = \frac{x^{mn}}{(1 - x)^n}
+\end{equation}
+The number of valid distributions is the coefficient of $x^R$:
+\begin{equation}
+[x^R] G(x) = [x^{R - mn}] (1 - x)^{-n} = \binom{(R - mn) + n - 1}{n - 1}
+\end{equation}
+Provided $R \ge mn$; if $R < mn$, the coefficient is identically $0$.
+
+\textbf{Implemented University Benchmark:}
+For $n = 4$ bays, $R = 100$ kWh backup energy, and $m = 15$ kWh minimum reserve:
+\begin{equation}
+\text{Aggregate reserve} = 4 \times 15 = 60\text{ kWh} \le 100\text{ kWh}
+\end{equation}
+\begin{equation}
+N = \binom{(100 - 60) + 4 - 1}{4 - 1} = \binom{43}{3} = \frac{43 \times 42 \times 41}{6} = \mathbf{12,341}
+\end{equation}
+The assumption of integer 1-kWh allocation units ensures exact combinatorial evaluation.
+
+\section{Algorithms and Implementation}
+
+\subsection{Greedy Graph Coloring Algorithm}
+Algorithm~\ref{alg:coloring} details the chromatic time-phase partitioning logic.
+
+\begin{algorithm}
+\caption{Welsh-Powell Conflict Graph Coloring}
+\label{alg:coloring}
+\begin{algorithmic}[1]
+\REQUIRE Trajectories $\mathcal{T} = \{\tau_1, \dots, \tau_k\}$
+\ENSURE Coloring map $c: V_c \to \mathbb{Z}_{\ge 0}$, Chromatic estimate $\chi$
+\STATE Construct conflict graph $G_c = (V_c, E_c)$ by checking vertex overlaps and edge swaps $\forall \tau_i, \tau_j$.
+\STATE Sort vertices $V_c$ in descending order of degree: $\deg(v_1) \ge \deg(v_2) \ge \dots \ge \deg(v_k)$.
+\STATE Initialize color index $C \leftarrow 0$.
+\WHILE{there exist uncolored vertices in $V_c$}
+    \FOR{each uncolored vertex $u \in V_c$ in sorted order}
+        \IF{$u$ is not adjacent in $G_c$ to any vertex assigned color $C$}
+            \STATE $c(u) \leftarrow C$
+        \ENDIF
+    \ENDFOR
+    \STATE $C \leftarrow C + 1$
+\ENDWHILE
+\RETURN $c$, $\chi = C$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Deadlock Recovery via Physical Dijkstra Detours}
+Algorithm~\ref{alg:deadlock} outlines cycle breaking in the Wait-For Graph.
+
+\begin{algorithm}
+\caption{WFG Cycle Detection and Dijkstra Detour Recovery}
+\label{alg:deadlock}
+\begin{algorithmic}[1]
+\REQUIRE Positions $\{p_i\}$, Desired cells $\{d_i\}$, Priorities $\{w_i\}$
+\ENSURE Recovery action $\mathcal{R}$
+\STATE Construct directed Wait-For Graph $D = (V_A, E_W)$ where $(u \to v) \in E_W \iff d_u = p_v$.
+\STATE Compute SCCs of $D$ via Tarjan's DFS algorithm.
+\STATE Identify simple cycles $\mathcal{C} = \text{find\_cycles}(D)$.
+\IF{$\mathcal{C} = \emptyset$}
+    \RETURN $\text{Deadlock} = \text{False}$
+\ENDIF
+\STATE Select yielding robot $A_{\text{yield}} = \arg\min_{v \in C} w_v$.
+\STATE Construct detour obstacles $O_{\text{detour}} = O \cup \{p_v \mid v \in V_A \setminus \{A_{\text{yield}}\}\}$.
+\STATE $\pi_{\text{new}} \leftarrow \text{Dijkstra}(p_{A_{\text{yield}}}, \text{target}, G \setminus O_{\text{detour}})$.
+\IF{$\pi_{\text{new}}$ is valid}
+    \STATE Assign $\pi_{\text{new}}$ to $A_{\text{yield}}$;\ \RETURN $\text{Success} = \text{True}$
+\ELSE
+    \RETURN $\text{Strategy} = \text{"NO\_FEASIBLE\_DETOUR"},\ \text{Success} = \text{False}$
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\section{Experimental Setup}
+The experimental testbed was evaluated on a dedicated workstation (Python 3.13.5, FastAPI 0.115, NetworkX 3.4, SymPy 1.13, Vite 6.4, React 18, Windows 11). 
+
+\begin{table}[htbp]
+\caption{Warehouse Digital Twin Experimental Parameters}
+\label{tab:params}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Configured Value} \\
+\midrule
+Grid Dimensions & $W \times H$ & $8 \times 8$ (64 discrete cells) \\
+Cell Physical Dimension & $s$ & $1.5\text{ m} \times 1.5\text{ m}$ \\
+Active Fleet Size & $|\mathcal{A}|$ & 8 AGV Robots \\
+Inductive Charging Docks & $n_{\text{dock}}$ & 4 Peripheral Stations \\
+Storage Rack Bays & $n_{\text{storage}}$ & 6 Dedicated Access Zones \\
+Movement Cost per Hop & $c_{\text{move}}$ & 1.0 energy unit \\
+Nominal AGV Speed & $v_{\text{nom}}$ & $1.0\text{ m/s}$ \\
+Battery Capacity & $C_{\text{bat}}$ & $10.0\text{ kWh}$ \\
+Low Battery Threshold & $\theta_{\text{low}}$ & 25.0\% (Reroute trigger) \\
+Discrete Clock Tick Rate & $\Delta t$ & 800 ms per tick \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+Five predefined experimental benchmarks were evaluated:
+\begin{itemize}
+    \item \textbf{EXP-01 (Normal Warehouse Routing):} Parallel horizontal trajectories under unconstrained nominal power.
+    \item \textbf{EXP-02 (Intersecting Robot Routes):} 4 AGVs with orthogonal crossing trajectories at center cell $(3, 3)$.
+    \item \textbf{EXP-03 (Restricted Charging Stations):} 4 low-battery AGVs needing docking on a diagonal forbidden matrix.
+    \item \textbf{EXP-04 (Backup Energy Shortage):} 4 bays tested across Surplus ($100$ kWh), Nominal ($68$ kWh), and Deficit ($50$ kWh) levels.
+    \item \textbf{EXP-05 (Circular Waiting \& Deadlock Recovery):} 4 AGVs in a tight $2 \times 2$ cyclic loop around a central structural obstruction.
+\end{itemize}
+
+\section{Results and Discussion}
+
+\subsection{Empirical Benchmark Evaluation}
+Table~\ref{tab:results} summarizes the actual recorded metrics across the five experimental scenarios, comparing uncoordinated Baseline execution against the mathematically optimized framework.
+
+\begin{table*}[htbp]
+\caption{Empirical Experimental Performance Evaluation: Baseline vs. Mathematically Optimized Modes}
+\label{tab:results}
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Experiment Scenario} & \textbf{Total Distance ($T$)} & \textbf{Avg. Wait ($W$)} & \textbf{Detected Conflicts} & \textbf{Actual Collisions} & \textbf{Deliveries Completed} & \textbf{Deadlock Resolution} \\
+\midrule
+\textbf{EXP-01: Baseline} & 56 hops & 0.00 ticks & 0 & 0 & 8 / 8 (100\%) & N/A (None) \\
+\textbf{EXP-01: Optimized} & 56 hops & 0.00 ticks & 0 & 0 & 8 / 8 (100\%) & N/A (None) \\
+\midrule
+\textbf{EXP-02: Baseline} & 24 hops & 0.00 ticks & 4 & \textbf{4 vertex + 2 swap} & 4 / 4 (Crashed) & N/A \\
+\textbf{EXP-02: Optimized} & 24 hops & 0.75 ticks & 4 & \textbf{0 (-100\%)} & 4 / 4 (100\%) & Resolved via $\chi=2$ \\
+\midrule
+\textbf{EXP-03: Baseline} & 28 hops & 0.00 ticks & 0 & 0 & 4 / 4 (15/24 fail) & Uncoordinated \\
+\textbf{EXP-03: Optimized} & 28 hops & 0.00 ticks & 0 & 0 & 4 / 4 (100\% valid) & 9/9 valid ($!4=9$) \\
+\midrule
+\textbf{EXP-04: Baseline} & 28 hops & 0.00 ticks & 0 & 0 & Blind dispatch & Battery depletion \\
+\textbf{EXP-04: Optimized} & 28 hops & 0.00 ticks & 0 & 0 & Deficit halted & $[x^{50}]G(x)=0$ caught \\
+\midrule
+\textbf{EXP-05: Baseline} & 14 hops (Stall) & $\infty$ (Permanent) & 4 & 0 (Stopped) & \textbf{0 / 4 (0\%)} & \textbf{Permanent Lock} \\
+\textbf{EXP-05: Optimized} & 20 hops (Detour) & 1.25 ticks & 4 & 0 & \textbf{4 / 4 (100\%)} & \textbf{1 / 1 Resolved} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\subsection{Discussion of Findings}
+In EXP-01, both baseline and optimized modes produced identical 56-hop travel metrics, demonstrating that in unconstrained settings, greedy geodesic routing incurs zero optimization penalty.
+
+In EXP-02, simultaneous baseline dispatch resulted in 4 spatio-temporal vertex overlaps and 2 head-on edge swaps at tick $t=3$. The conflict graph engine identified all 4 interferences; the Welsh-Powell coloring algorithm partitioned the fleet into 2 chromatic time phases ($\chi = 2$), completely eliminating physical collisions at the modest cost of 0.75 ticks average waiting latency.
+
+In EXP-03, arbitrary dock assignment suffered a 62.5\% failure rate ($15/24$ invalid permutations). The Rook Polynomial PIE backtracking solver isolated the exact 9 valid derangements ($!4 = 9$), ensuring 100\% dock compatibility.
+
+In EXP-04, at 50 kWh reserve against an aggregate requirement of $4 \times 15 = 60$ kWh, the coefficient $[x^{50}] G(x)$ was evaluated as exactly 0. The system tripped an automatic safety deficit interlock, preventing mid-route vehicle stranding.
+
+In EXP-05, baseline execution stalled permanently with 0 completed deliveries. The Wait-For Graph engine isolated the directed cycle $[A_1 \to A_2 \to A_3 \to A_4 \to A_1]$. Yielding robot AGV-04 replanned a true physical Dijkstra detour around the obstruction, achieving a 100\% delivery completion rate.
+
+\section{Limitations and Future Scope}
+\subsection{Limitations}
+\begin{itemize}
+    \item \textbf{Simulation Validation:} All tests were conducted in a discrete-event digital twin without physical robot kinematic wheel slippage or localization noise.
+    \item \textbf{Heuristic Chromatic Bounds:} While Welsh-Powell satisfies $\chi \le \Delta + 1$, greedy coloring does not guarantee the minimum chromatic number on arbitrary dense graphs.
+    \item \textbf{Single-Agent Detour Rerouting:} Local Dijkstra detours resolve cycles effectively in moderate traffic, but ultra-dense coupled environments may require full CBS to avoid secondary deadlocks.
+    \item \textbf{Discrete Energy Quotas:} The OGF model assumes integer kWh units and static reserves, whereas real lithium battery discharge is non-linear and payload-dependent.
+\end{itemize}
+
+\subsection{Future Scope}
+Future work will extend the platform to:
+1) Large-scale warehouse grids ($64 \times 64$ cells with 100+ robots);
+2) Continuous-time kinematic velocity profiling;
+3) ROS2 / Gazebo physical robotic testbed integration;
+4) Dynamic non-linear SOC battery chemistry modeling.
+
+\section{Conclusion}
+This paper presented \textit{AGV Intelligence}, an experiential learning digital twin demonstrating how discrete mathematics provides exact guarantees for AGV warehouse traffic routing, smart charging compatibility, and power allocation. Planar grid graphs and Dijkstra routing establish geodesic foundations. Spatio-temporal conflict graphs and Welsh-Powell vertex coloring eliminate physical collisions. Rook polynomials and the Principle of Inclusion-Exclusion guarantee compatible charging assignments isomorphic to derangements ($!4 = 9$). Ordinary Generating Functions yield closed-form power partitions ($[x^{100}] G(x) = \binom{43}{3} = 12,341$) and flag power deficits. Directed Wait-For Graphs and Tarjan's SCC isolate circular deadlocks, resolved via true physical Dijkstra detours. Empirical evaluation confirms 100\% collision elimination, 100\% deadlock recovery, and exact mathematical fidelity.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" style="background:#0f172a; font-family:system-ui, sans-serif;">
+  <text x="25" y="35" fill="#f8fafc" font-size="18" font-weight="bold">Wait-For Graph (WFG) &amp; Physical Dijkstra Detour Recovery</text>
+  <text x="25" y="55" fill="#94a3b8" font-size="11">Coffman circular wait cycle detection via Tarjan's SCC &amp; obstacle-augmented rerouting</text>
+
+  <!-- Left: Cyclic Wait-For Graph -->
+  <rect x="25" y="75" width="360" height="345" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="45" y="105" fill="#f87171" font-size="13" font-weight="bold">DIRECTED CYCLE DETECTED: [A1 -> A2 -> A3 -> A4 -> A1]</text>
+  <text x="45" y="123" fill="#94a3b8" font-size="10">Wait-For Graph D = (V_A, E_W) where edge (u -> v) indicates u waits on cell of v</text>
+
+  <!-- Nodes in a circle -->
+  <!-- AGV-01 (120, 200) -->
+  <circle cx="120" cy="220" r="28" fill="#ef4444" stroke="#fca5a5" stroke-width="2"/>
+  <text x="120" y="225" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">AGV-01</text>
+  <text x="120" y="260" fill="#94a3b8" font-size="9" text-anchor="middle">Cell (3,3)</text>
+
+  <!-- AGV-02 (205, 150) -->
+  <circle cx="205" cy="160" r="28" fill="#ef4444" stroke="#fca5a5" stroke-width="2"/>
+  <text x="205" y="165" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">AGV-02</text>
+  <text x="205" y="125" fill="#94a3b8" font-size="9" text-anchor="middle">Cell (3,4)</text>
+
+  <!-- AGV-03 (290, 220) -->
+  <circle cx="290" cy="220" r="28" fill="#ef4444" stroke="#fca5a5" stroke-width="2"/>
+  <text x="290" y="225" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">AGV-03</text>
+  <text x="290" y="260" fill="#94a3b8" font-size="9" text-anchor="middle">Cell (4,4)</text>
+
+  <!-- AGV-04 (205, 290) - Yield Robot -->
+  <circle cx="205" cy="300" r="28" fill="#f59e0b" stroke="#fde68a" stroke-width="2.5"/>
+  <text x="205" y="305" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">AGV-04</text>
+  <text x="205" y="340" fill="#fde68a" font-size="9.5" font-weight="bold" text-anchor="middle">Yields (Priority 1.0)</text>
+
+  <!-- Directed Edges -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <path d="M 142 198 L 180 172" stroke="#f87171" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 230 175 L 268 200" stroke="#f87171" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 270 240 L 230 280" stroke="#f87171" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 180 295 L 140 245" stroke="#f87171" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Right: Dijkstra Physical Detour -->
+  <rect x="415" y="75" width="360" height="345" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="435" y="105" fill="#38bdf8" font-size="13" font-weight="bold">PHYSICAL DETOUR REPLANNING</text>
+  <text x="435" y="123" fill="#94a3b8" font-size="10">No fake edge deletion; Dijkstra reroutes yielding agent around obstacles</text>
+
+  <!-- Step Breakdown Table in SVG -->
+  <rect x="435" y="145" width="320" height="42" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+  <text x="445" y="163" fill="#38bdf8" font-size="10.5" font-weight="bold">Step 1: Yield Agent Identification</text>
+  <text x="445" y="177" fill="#94a3b8" font-size="9.5">min(priority) = AGV-04 selected to yield and back off</text>
+
+  <rect x="435" y="195" width="320" height="42" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="445" y="213" fill="#f59e0b" font-size="10.5" font-weight="bold">Step 2: Dynamic Obstacle Augmentation</text>
+  <text x="445" y="227" fill="#94a3b8" font-size="9.5">Add {pos(A1), pos(A2), pos(A3)} to temporary obstacle barrier</text>
+
+  <rect x="435" y="245" width="320" height="42" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="445" y="263" fill="#10b981" font-size="10.5" font-weight="bold">Step 3: Dijkstra Detour Path Calculation</text>
+  <text x="445" y="277" fill="#94a3b8" font-size="9.5">AGV-04 reroutes around congestion: (4,3) -> (5,3) -> (5,2) -> (0,0)</text>
+
+  <rect x="435" y="295" width="320" height="42" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="1"/>
+  <text x="445" y="313" fill="#a855f7" font-size="10.5" font-weight="bold">Step 4: Cascade Recovery Verified</text>
+  <text x="445" y="327" fill="#94a3b8" font-size="9.5">Cycle broken; AGV-01, 02, 03 advance immediately; 100% mission completion</text>
+
+  <rect x="435" y="350" width="320" height="50" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="445" y="372" fill="#a7f3d0" font-size="11" font-weight="bold">RESULT: Complete Deadlock Resolution</text>
+  <text x="445" y="388" fill="#ffffff" font-size="9.5">Baseline: 0/4 deliveries (Stalled)  vs  Optimized: 4/4 completed (100% recovered)</text>
+</svg>
