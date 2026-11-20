@@ -6,7 +6,7 @@ Discrete Mathematics & Graph Theory Experiential Learning System.
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from backend.config import settings
 from backend.api.routes import health, warehouse, simulation, algorithms, experiments
 
@@ -14,8 +14,9 @@ app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description="Mathematical Modelling and Optimization of AGV Traffic Routing & Smart Charging",
-    docs_url="/docs",
-    redoc_url="/redoc"
+    docs_url=f"{settings.api_prefix}/docs",
+    openapi_url=f"{settings.api_prefix}/openapi.json",
+    redoc_url=f"{settings.api_prefix}/redoc"
 )
 
 # CORS configuration for React frontend communication
@@ -49,6 +50,7 @@ app.include_router(experiments.router, prefix=settings.api_prefix)
 
 
 @app.get("/")
+@app.get(settings.api_prefix)
 def root():
     """Root endpoint summarizing the AGV Intelligence platform."""
     return {
@@ -64,6 +66,12 @@ def root():
             "experiments": f"{settings.api_prefix}/experiments"
         }
     }
+
+
+@app.get("/docs", include_in_schema=False)
+def redirect_docs():
+    """Redirect legacy /docs path to prefix-scoped /api/docs."""
+    return RedirectResponse(url=f"{settings.api_prefix}/docs")
 
 
 if __name__ == "__main__":
