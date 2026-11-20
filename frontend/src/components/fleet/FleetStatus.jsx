@@ -85,7 +85,7 @@ export default function FleetStatus({ agvs = {}, selectedAGVId, onSelectAGV }) {
               }`}
             >
               {/* Card Header: Color Swatch + ID + Status + Battery */}
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
                 <div className="flex items-center gap-2">
                   <span
                     className="w-3 h-3 rounded-full border border-black/10 dark:border-white/20 shrink-0"

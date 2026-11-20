@@ -204,8 +204,8 @@ export default function OverviewPage({
             </div>
 
             {/* Weight inputs */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="flex items-center gap-1.5">
+            <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <div className="flex items-center justify-between sm:justify-start gap-1.5 bg-white dark:bg-slate-900/60 p-1.5 sm:p-0 rounded-lg sm:rounded-none border sm:border-0 border-slate-200 dark:border-slate-800">
                 <span className="text-slate-600 dark:text-slate-400">α (Dist):</span>
                 <input
                   type="number"
@@ -217,7 +217,7 @@ export default function OverviewPage({
                   className="w-12 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-1.5 py-0.5 text-slate-900 dark:text-white text-center text-xs"
                 />
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center justify-between sm:justify-start gap-1.5 bg-white dark:bg-slate-900/60 p-1.5 sm:p-0 rounded-lg sm:rounded-none border sm:border-0 border-slate-200 dark:border-slate-800">
                 <span className="text-slate-600 dark:text-slate-400">β (Conf):</span>
                 <input
                   type="number"
@@ -229,7 +229,7 @@ export default function OverviewPage({
                   className="w-12 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-1.5 py-0.5 text-slate-900 dark:text-white text-center text-xs"
                 />
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center justify-between sm:justify-start gap-1.5 bg-white dark:bg-slate-900/60 p-1.5 sm:p-0 rounded-lg sm:rounded-none border sm:border-0 border-slate-200 dark:border-slate-800">
                 <span className="text-slate-600 dark:text-slate-400">γ (Energy):</span>
                 <input
                   type="number"
@@ -241,7 +241,7 @@ export default function OverviewPage({
                   className="w-12 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-1.5 py-0.5 text-slate-900 dark:text-white text-center text-xs"
                 />
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center justify-between sm:justify-start gap-1.5 bg-white dark:bg-slate-900/60 p-1.5 sm:p-0 rounded-lg sm:rounded-none border sm:border-0 border-slate-200 dark:border-slate-800">
                 <span className="text-slate-600 dark:text-slate-400">δ (Wait):</span>
                 <input
                   type="number"

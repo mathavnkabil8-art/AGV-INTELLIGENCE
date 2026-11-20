@@ -93,37 +93,37 @@ export default function WarehouseGrid({
   };
 
   return (
-    <div className="relative bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 overflow-auto shadow-xs transition-colors">
+    <div className="relative bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 sm:p-4 shadow-xs transition-colors overflow-hidden">
       {/* Legend & Interactive Status Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80 text-xs">
-        <div className="flex items-center gap-4 flex-wrap">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-3 sm:mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80 text-xs">
+        <div className="flex items-center gap-2.5 sm:gap-4 flex-wrap text-[11px] sm:text-xs">
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 shadow-2xs"></span>
-            <span className="text-slate-600 dark:text-slate-400 font-medium">Navigable Lane</span>
+            <span className="w-3 h-3 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 shadow-2xs"></span>
+            <span className="text-slate-600 dark:text-slate-400 font-medium">Navigable</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-slate-200 dark:bg-slate-700/80 border border-slate-400 dark:border-slate-600"></span>
-            <span className="text-slate-700 dark:text-slate-300 font-medium">Storage Rack</span>
+            <span className="w-3 h-3 rounded bg-slate-200 dark:bg-slate-700/80 border border-slate-400 dark:border-slate-600"></span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Rack</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-teal-50 dark:bg-amber-950/80 border border-teal-500 dark:border-amber-600"></span>
-            <span className="text-teal-700 dark:text-amber-400 font-medium">Charging Bay (4)</span>
+            <span className="w-3 h-3 rounded bg-teal-50 dark:bg-amber-950/80 border border-teal-500 dark:border-amber-600"></span>
+            <span className="text-teal-700 dark:text-amber-400 font-medium">Charger (4)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-purple-50 dark:bg-emerald-950/80 border border-purple-500 dark:border-emerald-600"></span>
-            <span className="text-purple-700 dark:text-emerald-400 font-medium">Staging Bay (6)</span>
+            <span className="w-3 h-3 rounded bg-purple-50 dark:bg-emerald-950/80 border border-purple-500 dark:border-emerald-600"></span>
+            <span className="text-purple-700 dark:text-emerald-400 font-medium">Staging (6)</span>
           </div>
         </div>
 
         {/* Active Grid Interaction Hint */}
-        <div className="font-mono text-[11px] px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <div className="font-mono text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full sm:w-auto text-center sm:text-left">
           {mode === 'obstacle' ? (
-            <span className="text-rose-600 dark:text-rose-400 font-bold flex items-center gap-1">
+            <span className="text-rose-600 dark:text-rose-400 font-bold flex items-center justify-center sm:justify-start gap-1">
               <Ban size={12} /> Click cells to add/remove obstacles
             </span>
           ) : selectedAGVId ? (
-            <span className="text-blue-600 dark:text-cyan-400 font-bold">
-              {selectedAGVId} selected • Click any cell to dispatch destination
+            <span className="text-blue-600 dark:text-cyan-400 font-bold truncate block">
+              {selectedAGVId} selected • Click cell to dispatch
             </span>
           ) : (
             <span className="text-slate-500 dark:text-slate-400">Click a robot to inspect & assign targets</span>
@@ -131,15 +131,15 @@ export default function WarehouseGrid({
         </div>
       </div>
 
-      {/* SVG Canvas (8x8 Grid) */}
-      <div className="flex justify-center select-none overflow-x-auto max-w-full p-1">
-        <svg
-          width={svgWidth}
-          height={svgHeight}
-          viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="transition-all max-w-full h-auto"
-        >
-          <g transform={`translate(${padding}, ${padding})`}>
+      {/* SVG Canvas (8x8 Grid) - Fluid Aspect Square Container */}
+      <div className="w-full flex justify-center items-center select-none py-1 overflow-x-auto">
+        <div className="w-full max-w-[568px] min-w-[270px] aspect-square">
+          <svg
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            className="w-full h-full transition-all block max-h-[70vh]"
+            style={{ touchAction: 'manipulation' }}
+          >
+            <g transform={`translate(${padding}, ${padding})`}>
             {/* Draw 8x8 Grid Cells */}
             {Array.from({ length: height }).map((_, y) =>
               Array.from({ length: width }).map((_, x) => {
@@ -357,10 +357,11 @@ export default function WarehouseGrid({
             })}
           </g>
         </svg>
+        </div>
       </div>
 
       {/* Grid Footer Telemetry & Hover Inspector */}
-      <div className="mt-3 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-mono bg-slate-50 dark:bg-slate-900/60 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-mono bg-slate-50 dark:bg-slate-900/60 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800">
         <div>
           {hoveredCell ? (
             <span>

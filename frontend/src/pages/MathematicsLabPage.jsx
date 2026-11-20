@@ -76,7 +76,7 @@ export default function MathematicsLabPage() {
                     Rook Polynomial Expansion
                   </h4>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center font-bold shadow-2xs">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center font-bold shadow-2xs overflow-x-auto">
                   R(x, B) = ∑_{'{'}k=0{'}'}^{'{'}min(n, m){'}'} r_k(B) · x^k
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-xs">
@@ -92,7 +92,7 @@ export default function MathematicsLabPage() {
                     Valid Permutations via Principle of Inclusion-Exclusion (PIE)
                   </h4>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-emerald-700 dark:text-emerald-300 text-center text-sm font-bold shadow-2xs">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-emerald-700 dark:text-emerald-300 text-center text-sm font-bold shadow-2xs overflow-x-auto">
                   N = n! - r_1·(n-1)! + r_2·(n-2)! - r_3·(n-3)! + ... = ∑_{'{'}k=0{'}'}^n (-1)^k · r_k(B) · (n - k)!
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-xs">
@@ -164,7 +164,7 @@ export default function MathematicsLabPage() {
                     Vertex Coloring & Time-Slot Channel Separation
                   </h4>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center font-bold shadow-2xs">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center font-bold shadow-2xs overflow-x-auto">
                   c: V_c → {'{'}0, 1, ..., k-1{'}'} such that (u, v) ∈ E_c ⟹ c(u) ≠ c(v)
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-xs">
@@ -208,7 +208,7 @@ export default function MathematicsLabPage() {
                 <p>
                   A warehouse microgrid has <code className="text-blue-600 dark:text-cyan-400 font-mono font-bold">R</code> units of total backup electricity to partition among <code className="text-blue-600 dark:text-cyan-400 font-mono font-bold">n</code> charging bays. Each bay must receive a minimum reserve of <code className="text-blue-600 dark:text-cyan-400 font-mono font-bold">m</code> kWh:
                 </p>
-                <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center font-bold shadow-2xs">
+                <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center font-bold shadow-2xs overflow-x-auto">
                   x₁ + x₂ + ... + xₙ = R,  with xᵢ ≥ m for all i ∈ {'{'}1, ..., n{'}'}
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function MathematicsLabPage() {
                     Ordinary Generating Function Construction
                   </h4>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-emerald-700 dark:text-emerald-300 text-center text-sm font-bold shadow-2xs">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-emerald-700 dark:text-emerald-300 text-center text-sm font-bold shadow-2xs overflow-x-auto">
                   G(x) = (xᵐ + xᵐ⁺¹ + xᵐ⁺² + ...)ⁿ = (xᵐ / (1 - x))ⁿ = xᵐⁿ / (1 - x)ⁿ
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-xs">
@@ -235,7 +235,7 @@ export default function MathematicsLabPage() {
                     Negative Binomial Coefficient Extraction
                   </h4>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center text-sm font-bold shadow-2xs">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-blue-700 dark:text-cyan-300 text-center text-sm font-bold shadow-2xs overflow-x-auto">
                   [xᴿ] G(x) = [xᴿ⁻ᵐⁿ] (1 - x)⁻ⁿ = C((R - mn) + n - 1, n - 1)
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-xs">

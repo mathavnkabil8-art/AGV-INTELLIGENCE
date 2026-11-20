@@ -29,24 +29,24 @@ export default function StatCard({
 
   return (
     <div
-      className={`glass-panel rounded-2xl p-4 sm:p-5 transition-all duration-200 min-w-0 ${className}`}
+      className={`glass-panel rounded-2xl p-3.5 sm:p-5 transition-all duration-200 min-w-0 max-w-full overflow-hidden ${className}`}
     >
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 truncate tracking-wide uppercase">
+      <div className="flex items-start justify-between gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+        <span className="text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate tracking-wide uppercase">
           {label}
         </span>
         {Icon && (
-          <div className={`p-2 rounded-xl border ${getIconContainerStyle()} shrink-0`}>
-            <Icon size={16} />
+          <div className={`p-1.5 sm:p-2 rounded-xl border ${getIconContainerStyle()} shrink-0`}>
+            <Icon size={14} className="sm:w-4 sm:h-4" />
           </div>
         )}
       </div>
 
-      <div className="flex items-baseline gap-2 mt-1">
-        <span className="text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 dark:text-white tracking-tight">
+      <div className="flex items-baseline gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 min-w-0">
+        <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-mono text-slate-900 dark:text-white tracking-tight truncate">
           {value !== undefined && value !== null ? value : '--'}
         </span>
-        {unit && <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{unit}</span>}
+        {unit && <span className="text-[11px] sm:text-xs font-mono text-slate-500 dark:text-slate-400 truncate">{unit}</span>}
       </div>
 
       <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 text-xs">

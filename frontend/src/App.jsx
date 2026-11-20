@@ -19,6 +19,7 @@ import { AlertCircle } from 'lucide-react';
 export default function App() {
   const [currentTab, setCurrentTab] = useState('overview');
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   // Global Simulation & Warehouse State
@@ -157,7 +158,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex bg-command-bg text-slate-800 dark:text-slate-100 font-sans selection:bg-blue-600 selection:text-white transition-colors">
-      {/* 1. Left Sidebar Navigation */}
+      {/* 1. Sidebar Navigation (Desktop Fixed + Mobile Off-Canvas Drawer) */}
       <Sidebar
         currentTab={currentTab}
         onTabChange={setCurrentTab}
@@ -165,12 +166,14 @@ export default function App() {
         onToggleCollapse={() => setIsSidebarCollapsed((prev) => !prev)}
         activeConflictCount={deadlockedRobots}
         deadlockDetected={deadlockedRobots > 0}
+        isMobileOpen={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main Content Viewport */}
       <div
-        className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${
-          isSidebarCollapsed ? 'ml-20' : 'ml-64'
+        className={`flex-1 flex flex-col min-w-0 w-full transition-all duration-300 ml-0 ${
+          isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
         }`}
       >
         {/* 2. Top Navigation Bar */}
@@ -188,17 +191,20 @@ export default function App() {
           onOpenNotifications={() => setIsNotificationOpen(true)}
           unreadNotificationCount={eventsList.length}
           conflictCount={deadlockedRobots}
+          onToggleMobileMenu={() => setIsMobileMenuOpen((prev) => !prev)}
         />
 
         {/* Global Connection Warning Banner */}
         {apiError && (
-          <div className="bg-rose-950/80 border-b border-rose-800 text-rose-200 px-4 py-2 text-xs flex items-center justify-between">
-            <div className="flex items-center gap-2 max-w-7xl mx-auto w-full">
-              <AlertCircle size={15} className="text-rose-400 shrink-0" />
-              <span>{apiError}</span>
+          <div className="bg-rose-950/80 border-b border-rose-800 text-rose-200 px-3 sm:px-4 py-2 text-xs flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 max-w-7xl mx-auto w-full">
+              <div className="flex items-center gap-2">
+                <AlertCircle size={15} className="text-rose-400 shrink-0" />
+                <span className="truncate">{apiError}</span>
+              </div>
               <button
                 onClick={loadInitialData}
-                className="ml-auto underline hover:text-white font-semibold font-mono"
+                className="self-start sm:ml-auto underline hover:text-white font-semibold font-mono text-[11px]"
               >
                 Retry Backend Connection
               </button>
@@ -207,7 +213,7 @@ export default function App() {
         )}
 
         {/* 3. Main Page Content (Routed by currentTab) */}
-        <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 min-w-0">
+        <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 min-w-0 overflow-x-hidden">
           {currentTab === 'overview' && (
             <OverviewPage
               warehouse={warehouse}
